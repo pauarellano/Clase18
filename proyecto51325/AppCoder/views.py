@@ -12,3 +12,25 @@ def crear_curso(request):
     curso.save()
     respuesta=f"Curso creado--- {nombre_curso}- {comision_curso}"
     return HttpResponse(respuesta)
+
+def cursos(request):
+
+    return render(request,"Appcoder/cursos.html") #Crear URL
+
+def profesores(request):
+
+    return render (request,"Appcoder/profesores.html")#Crear URL
+
+def estudiantes(request):
+
+    return render (request,"Appcoder/estudiantes.html")#Crear URL
+
+def entregables(request):
+
+    return render(request,"Appcoder/entregables.html")#Crear URL
+
+def inicio(request):
+    return HttpResponse("Pagina de inicio")
+def inicioApp(request):
+
+    return render(request,"Appcoder/inicio.html")  

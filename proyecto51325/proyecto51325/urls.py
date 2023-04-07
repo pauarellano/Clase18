@@ -15,10 +15,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from AppCoder.views import crear_curso
+from django.urls import path,include #Include sirve para linkear los otros archivos URL
+from AppCoder.views import *  #Importar los views de Appcoder
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("crearcurso/",crear_curso),
+    path("", inicio),
+    path("AppCoder/",include ("AppCoder.urls")),
+
 ]
