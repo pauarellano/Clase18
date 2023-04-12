@@ -7,6 +7,9 @@ class Curso(models.Model):
     nombre=models.CharField(max_length=50) #Tendra máximo 50 caracteres, campo de texto
     comision=models.IntegerField() #para poner Números
 
+    def __str__(self):
+         return f"{self.nombre} - {self.comision}"
+
 class Estudiante(models.Model):
      nombre=models.CharField(max_length=50)
      apellido=models.CharField(max_length=50)
@@ -18,6 +21,9 @@ class Profesor(models.Model):
      apellido=models.CharField(max_length=50)
      email=models.EmailField()
      profesion=models.CharField(max_length=50)
+
+     def __str__(self):
+          return f"{self.nombre}  {self.apellido}"
 
 class Entregable(models.Model):
     nombre=models.CharField(max_length=50)
