@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from .models import Curso
+from .models import Curso,Profesor #Se importa el profesor Clase 21. 
 from django.http import HttpResponse
+from .forms import ProfesorForm #Clase 21
 
 # Create your views here.
 
@@ -19,7 +20,31 @@ def cursos(request):
 
 def profesores(request):
 
-    return render (request,"Appcoder/profesores.html")#Crear URL
+    if request.method=="POST":
+        form= ProfesorForm(request.POST)
+
+        if form.is_valid():
+            nombre=form.cleaned_data["nombre"]
+            apellido=form.cleaned_data["apellido"]
+            email=form.cleaned_data["email"]
+            profesion=form.cleaned_data["profesion"]
+            profesor=Profesor() #Crea un objeto tipo profesor
+            profesor.nombre=nombre #variable de arriba que se acaba de crear
+            profesor.apellido=apellido
+            profesor.email=email
+            profesor.profesion=profesion
+            profesor.save() 
+            form=ProfesorForm() #Se crea el formulario en html
+        
+        else:
+            pass #No es necesario en el código. 
+    else:
+        form=ProfesorForm() #En el contexto agregaremos una entrada "form"
+
+    profesores=Profesor.objects.all #Creará una lista de objetos en este modelo, para mostrar una lista de profesores en html
+    context={"profesores":profesores,"form":form} #Clase 21, se agrega el contexto y se lleva al render
+
+    return render (request,"Appcoder/profesores.html",context)#Crear URL
 
 def estudiantes(request):
 

@@ -9,4 +9,51 @@
 {% block contenido_que_cambia%}
 
     <h1>Acceso a profesores </h1>
+
+<form action="" method="post"> <!-- Action es a donde van a ir los datos, si no se pone nada se irá a la misma ruta que lo invocó por primera vez-->
+    {{ form }}
+    {% csrf_token %}
+    <!--{{ form.as_p }} lo muestra como un parrafo  -->
+    <!--{{ form.as_ul }} le pone bullets  -->
+    <!--{{ form.as_table }} lo muestra como una tabla  -->
+    <input type="submit" value="Agregar"><!-- Agregar un boton llamado Agregar-->
+            
+</form>
+<table> <!-- Clase 21 Se agrega una tabla-->
+    <thead>
+        <tr>
+            <th> ID </th>
+            <th> Nombre </th>
+            <th>Apellido </th>
+            <th> Email </th>
+            <th>Profesion </th>
+        </tr>
+    </thead>
+    <tbody>
+       
+        {% for profesor in profesores %}
+        <tr>
+            <td>
+                {{ profesor.id }}
+            </td>
+            <td>
+                {{ profesor.nombre }}
+            </td>
+            <td>
+                {{ profesor.apellido }}
+            </td>
+            <td>
+                {{ profesor.email }}
+            </td>
+            <td>
+                {{ profesor.profesion }}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+
+
 {% endblock %}
