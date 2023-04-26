@@ -9,6 +9,7 @@
 {% block contenido_que_cambia%}
 
     <h1>Acceso a profesores </h1>
+    <h2>{{ mensaje }}</h2> <!--Clase 22. Agregar mensaje de borrado de profesor-->
 
 <form action="" method="post"> <!-- Action es a donde van a ir los datos, si no se pone nada se irá a la misma ruta que lo invocó por primera vez-->
     {{ form }}
@@ -27,6 +28,7 @@
             <th>Apellido </th>
             <th> Email </th>
             <th>Profesion </th>
+            <th>OPCIONES</th>
         </tr>
     </thead>
     <tbody>
@@ -47,6 +49,10 @@
             </td>
             <td>
                 {{ profesor.profesion }}
+            </td>
+            <td>
+               <a class="btn btn-danger" href="{% url 'eliminarProfesor' profesor.id %}">Eliminar </a>
+               <a class="btn btn-danger" href="{% url 'editarProfesor' profesor.id %}">Editar </a>
             </td>
         </tr>
         {% endfor %}

@@ -9,6 +9,8 @@ urlpatterns = [
     path("estudiantes/",estudiantes, name="estudiantes"),
     path("entregables/",entregables,name="entregables"),
     path("",inicioApp,name="inicioApp"),
-    path("busquedaComision/",busquedaComision, name="busquedaComision")
-    path("buscar/", buscar, name="buscar")
+    path("busquedaComision/",busquedaComision, name="busquedaComision"),
+    path("buscar/", buscar, name="buscar"),
+    path("eliminarProfesor/<id>",eliminarProfesor,name="eliminarProfesor"), #vclase 22
+    path("editarProfesor/<id>",editarProfesor,name="editarProfesor"),
 ]

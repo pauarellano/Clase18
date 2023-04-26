@@ -40,7 +40,7 @@ def profesores(request):
             pass #No es necesario en el código. 
     else:
         form=ProfesorForm() #En el contexto agregaremos una entrada "form"
-
+#READ- clase 22
     profesores=Profesor.objects.all #Creará una lista de objetos en este modelo, para mostrar una lista de profesores en html
     context={"profesores":profesores,"form":form} #Clase 21, se agrega el contexto y se lleva al render
 
@@ -62,3 +62,42 @@ def inicioApp(request):
 
 def busquedaComision(request):
     return render(request,"AppCoder/busquedaComision.html")
+
+def buscar(request):
+    comision=request.GET["comision"]
+    if comision!="":
+        cursos=Curso.object.filter(comision_icontains=comision)
+        return render(request,"AppCoder/resultaosBusqueda.html",{"cursos":cursos})
+    else:
+        return render(request,"AppCoder/busquedaComision.html", {"mensaje": "Ingresar una comisión para buscar"})
+    
+#Clase 22
+def eliminarProfesor(request,id):
+    profesor=Profesor.objects.get(id=id)
+    print(profesor)
+    profesor.delete()
+    profesores=Profesor.objects.all()
+    form=ProfesorForm()
+    return render(request,"AppCoder/Profesores.html",{"profesores":profesores,"mensaje":"Profesor eliminado correctamente","form":form})
+
+def editarProfesor(request,id):
+    profesor=Profesor.objects.get(id=id)
+
+    if request.method=="POST":
+        form= ProfesorForm(request.POST)
+
+        if form.is_valid():
+            info=form.cleaned_data
+            profesor.nombre=info["nombre"]
+            profesor.apellido=info["apellido"]
+            profesor.email=info["email"]
+            profesor.profesion=info["profesion"]
+            profesor.save() 
+            profesores=Profesor.objects.all()
+            return render(request,"AppCoder/Profesores.html",{"profesores":profesores, "mensaje":"Profesor editado correctmente"})
+  
+        pass #No es necesario en el código. 
+
+    else:
+        formulario=ProfesorForm(initial={"nombre":profesor.nombre,"apellido":profesor.apellido,"email":profesor.email,"profesion":profesor.profesion})
+        return render(request,"AppCoder/editarProfesores.html",{"form":formulario,"profesor":profesor}) 
